@@ -16,7 +16,13 @@ set cpo&vim
 " Neovim has set these as default
 if !has('nvim')
 
-  set nocompatible
+  іf &compatible
+    let s:modelinesetting = &modeline
+    set nocompatible
+    if !s:modelinesetting
+      set nomodeline
+    endif
+  endif
 
   syntax on                      " Syntax highlighting
   filetype plugin indent on      " Automatically detect file types
@@ -150,10 +156,10 @@ set relativenumber          " Relative numbers on
 set fillchars=stl:\ ,stlnc:\ ,fold:\ ,vert:│
 
 " Annoying temporary files
-set directory=/tmp//,.
-set backupdir=/tmp//,.
+set directory=$TMPDIR//,.
+set backupdir=$TMPDIR//,.
 if v:version >= 703
-  set undodir=/tmp//,.
+  set undodir=$TMPDIR//,.
 endif
 
 highlight clear SignColumn  " SignColumn should match background
